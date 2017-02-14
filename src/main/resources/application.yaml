@@ -1,0 +1,3 @@
+test:
+  value: "This is from Yaml"
+  other: "This is also from Yaml"

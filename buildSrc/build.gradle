@@ -1,0 +1,17 @@
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    dockerJava {
+        resolutionStrategy {
+            force 'de.gesellix:unix-socket-factory:2016-04-06T22-21-19'
+        }
+    }
+}
+
+
+dependencies {
+    compile 'com.amazonaws:aws-java-sdk-ecr:1.11.60'
+    compile 'com.bmuschko:gradle-docker-plugin:3.0.3'
+}

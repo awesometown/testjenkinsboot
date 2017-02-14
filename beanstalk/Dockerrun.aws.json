@@ -1,0 +1,65 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "volumes": [
+    {
+      "name": "docker_sock",
+      "host": {
+        "sourcePath": "/var/run/docker.sock"
+      }
+    },
+    {
+      "name": "proc",
+      "host": {
+        "sourcePath": "/proc/"
+      }
+    },
+    {
+      "name": "cgroup",
+      "host": {
+        "sourcePath": "/cgroup/"
+      }
+    }
+  ],
+  "containerDefinitions": [
+    {
+      "name": "evenbetter2",
+      "image": "425548863806.dkr.ecr.us-east-1.amazonaws.com/johntest:${tag}",
+      "essential": true,
+      "memory": 256,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 9999
+        }
+      ],
+    },
+    {
+      "name": "dd-agent",
+      "image": "datadog/docker-dd-agent:latest",
+      "environment": [
+        {
+          "name": "API_KEY",
+          "value": "6bed473dfb1979d70ae0fbececc4a3f1"
+        }
+      ],
+      "memory": 128,
+      "mountPoints": [
+        {
+          "sourceVolume": "docker_sock",
+          "containerPath": "/var/run/docker.sock",
+          "readOnly": false
+        },
+        {
+          "sourceVolume": "proc",
+          "containerPath": "/host/proc",
+          "readOnly": true
+        },
+        {
+          "sourceVolume": "cgroup",
+          "containerPath": "/host/sys/fs/cgroup",
+          "readOnly": true
+        }
+      ]
+    }
+  ]
+}
