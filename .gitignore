@@ -1,4 +1,5 @@
+/build
+/buildSrc/build
 .gradle
 .idea
-build
 *.ipr
