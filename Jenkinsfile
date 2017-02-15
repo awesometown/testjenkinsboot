@@ -7,7 +7,7 @@ node {
                           usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
             sh '''
             set +x
-            ./gradlew clean assemble -PBUILD_NUMBER=${env.BUILD_NUMBER} -PAWS_ACCESS_KEY_ID=$USERNAME -PAWS_SECRET_ACCESS_KEY=$PASSWORD
+            ./gradlew clean assemble -PBUILD_NUMBER=$BUILD_NUMBER -PAWS_ACCESS_KEY_ID=$USERNAME -PAWS_SECRET_ACCESS_KEY=$PASSWORD
            '''
         }
     }
