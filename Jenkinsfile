@@ -11,9 +11,9 @@ node {
             sh "./gradlew buildImage -PBUILD_NUMBER=${env.BUILD_NUMBER} -Daws.accessKeyId=${env.USERNAME} -Daws.secretKey=${env.PASSWORD}"
         }
 
-        stage('Deploy Image') {
-            sh "./gradlew publishImage -PBUILD_NUMBER=${env.BUILD_NUMBER} -Daws.accessKeyId=${env.USERNAME} -Daws.secretKey=${env.PASSWORD}"
-        }
+//        stage('Deploy Image') {
+//            sh "./gradlew publishImage -PBUILD_NUMBER=${env.BUILD_NUMBER} -Daws.accessKeyId=${env.USERNAME} -Daws.secretKey=${env.PASSWORD}"
+//        }
     }
 }
 
