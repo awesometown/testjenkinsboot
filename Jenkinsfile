@@ -9,8 +9,8 @@ node {
             set +x
             echo $USERNAME
             echo $PASSWORD
-            SET AWS_ACCESS_KEY_ID=$USERNAME
-            SET AWS_SECRET_ACCESS_KEY=$PASSWORD
+            set AWS_ACCESS_KEY_ID=$USERNAME
+            set AWS_SECRET_ACCESS_KEY=$PASSWORD
             ./gradlew clean assemble -PBUILD_NUMBER=$BUILD_NUMBER -PAWS_ACCESS_KEY_ID=$USERNAME -PAWS_SECRET_ACCESS_KEY=$PASSWORD
            '''
         }
