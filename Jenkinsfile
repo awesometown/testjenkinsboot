@@ -11,7 +11,7 @@ node {
             echo $PASSWORD
             set AWS_ACCESS_KEY_ID=$USERNAME
             set AWS_SECRET_ACCESS_KEY=$PASSWORD
-            ./gradlew clean assemble -PBUILD_NUMBER=$BUILD_NUMBER -Paws.accessKeyId=$USERNAME -Paws.secretKey=$PASSWORD
+            ./gradlew clean assemble -PBUILD_NUMBER=$BUILD_NUMBER -Daws.accessKeyId=$USERNAME -Daws.secretKey=$PASSWORD
            '''
         }
     }
