@@ -10,16 +10,25 @@ node {
         stage('Build Image') {
             sh "./gradlew buildImage -PBUILD_NUMBER=${env.BUILD_NUMBER} -Daws.accessKeyId=${env.USERNAME} -Daws.secretKey=${env.PASSWORD}"
         }
-
-//        stage('Deploy Image') {
-//            sh "./gradlew publishImage -PBUILD_NUMBER=${env.BUILD_NUMBER} -Daws.accessKeyId=${env.USERNAME} -Daws.secretKey=${env.PASSWORD}"
-//        }
     }
 }
 
-stage 'promotion'
-def userInput = input(
-        id: 'userInput', message: 'Let\'s promote?', parameters: [
-        [$class: 'TextParameterDefinition', defaultValue: 'uat', description: 'Environment', name: 'env']
-])
-echo ("Env: "+userInput)
+def promote = false
+
+stage ("Deploy Check") {
+    try {
+        timeout(time: 30, unit: 'SECONDS') {
+            promote = input message: 'Deploy to AWS?', parameters: [booleanParam(defaultValue: true, description: '', name: 'proceed')]
+        }
+    } catch (err) {
+        //this is ok; just means we timed out waiting for someone to promote
+    }
+}
+
+if(promote) {
+    node {
+        stage('Deploy Image') {
+            sh "./gradlew publishImage -PBUILD_NUMBER=${env.BUILD_NUMBER} -Daws.accessKeyId=${env.USERNAME} -Daws.secretKey=${env.PASSWORD}"
+        }
+    }
+}
